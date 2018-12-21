@@ -1,6 +1,7 @@
-fporm from https://github.com/alexjc/shadertoy-render
+fork from https://github.com/alexjc/shadertoy-render
 
 added "FBO suport" to render shaders with buffers and textures
++++++
 
 shadertoy-render
 ================
