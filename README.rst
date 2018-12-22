@@ -9,7 +9,7 @@ fork from https://github.com/alexjc/shadertoy-render
 
 1. added texture support, textures in **<0.png to 3.png> bind to iTexture<0-3>**
 2. added FrameBuffers, same to Buffer<A-D> on Shadertoy, **file name Buf<0-3>.glsl**, bind to iChannel<0-3>
-3. added encoding to *.mov (frames without compression), *.webm (v8 codec), both format **support RGBA** (video with alpha), *to edit ffmpeg options*(bitrate/etc) edit option you need on line 808+ shadertoy-render.py
+3. added encoding to *.mov (frames without compression), *.webm (v8 codec), both format **support RGBA** (video with alpha), *to edit ffmpeg options* (bitrate/etc) edit option you need on line 808+ shadertoy-render.py
 4. fixed iTime(start from 0 on shader launch) and other
 
 **Warning**
