@@ -12,7 +12,7 @@ shadertoy-render
 
 **Warning**
 
-Many shaders(even top rated) on Shadertoy use clamp(1,0,-1)/pow(1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen(or other random "results") because of this. Also remember to set Alpha in main.glsl when recording rgba video.
+Many shaders(even top rated) on Shadertoy use clamp(1,0,-1)/pow(1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen(or other random "results") because of this. Also remember to set Alpha in main.glsl when recording rgba video. interpolation of fbo is linear 
 
 **Example**
 
