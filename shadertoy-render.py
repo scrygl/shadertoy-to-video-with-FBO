@@ -36,7 +36,7 @@ from watchdog.events import FileSystemEventHandler
 
 vertex = \
     """
-#version 120
+#version 130
 
 attribute vec2 position;
 void main()
@@ -67,6 +67,7 @@ uniform vec3      iTextureResolution[4]; // channel resolution (in pixels)
 uniform float     iChannelTime[4];       // channel playback time (in sec)
 uniform vec2      iOffset;               // pixel offset for tiled rendering
 uniform int       iFrame; 
+uniform float     iTimeDelta; 
 #define iTime iGlobalTime
 
 %s
@@ -188,6 +189,7 @@ class RenderingCanvas(app.Canvas):
             ]
         self.program['iMouse'] = (0., 0., 0., 0.)
         self.program['iSampleRate'] = 44100.0
+        self.program['iTimeDelta'] = self._interval
         self.program['iGlobalTime'] = start_time
         self.program['iFrame'] = self._render_frame_index
         self.program['iOffset'] = (0., 0.)
@@ -209,6 +211,7 @@ class RenderingCanvas(app.Canvas):
         self.set_Buf_uniform('iOffset' , (0., 0.))
         self.set_Buf_uniform('iResolution' , (self.physical_size[0],
                     self.physical_size[1], 0.))
+        self.set_Buf_uniform('iTimeDelta' , self._interval)
 
         try:
             self.set_texture_input(read_png('0.png'), i=0)
@@ -234,6 +237,18 @@ class RenderingCanvas(app.Canvas):
         except FileNotFoundError:
             self.set_texture_input(noise(resolution=256, nchannels=3), i=3)
             self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=3)
+            
+            
+        for i in range(4):
+            with self._fboX[self._doubleFboid][i]:
+                gloo.set_clear_color((0.0, 0.0, 0.0, 0.0))
+                gloo.clear(color=True, depth=True)
+                gloo.set_viewport(0, 0, *self.physical_size)
+        for i in range(4):
+            with self._fboX[self._doubleFboid-1][i]:
+                gloo.set_clear_color((0.0, 0.0, 0.0, 0.0))
+                gloo.clear(color=True, depth=True)
+                gloo.set_viewport(0, 0, *self.physical_size)
         
         self.set_channel_input()
 
@@ -314,11 +329,11 @@ class RenderingCanvas(app.Canvas):
         
         for i in range(4):
             self._texX[0].append(gloo.Texture2D(shape=self._render_size[::-1]
-                    + (4, ), internalformat = 'rgba32f'))
+                    + (4, ), format= 'rgba', interpolation='linear', internalformat = 'rgba32f'))
             self._fboX[0].append(gloo.FrameBuffer(self._texX[0][i],
                     gloo.RenderBuffer(shape=self._render_size[::-1])))
             self._texX[1].append(gloo.Texture2D(shape=self._render_size[::-1]
-                    + (4, ), internalformat = 'rgba32f'))
+                    + (4, ), format= 'rgba', interpolation='linear', internalformat = 'rgba32f'))
             self._fboX[1].append(gloo.FrameBuffer(self._texX[1][i],
                     gloo.RenderBuffer(shape=self._render_size[::-1])))
             self._BufX.append(gloo.Program(vertex, fragment_template
@@ -334,7 +349,7 @@ class RenderingCanvas(app.Canvas):
         
     def set_channel_input(self):
         for i in range(4):
-            self.program['iChannel%d' % i] = self._texX[self._doubleFboid][i]
+            self.program['iChannel%d' % i] = self._texX[self._doubleFboid-1][i]
             self.program['iChannelResolution[%d]' % i] =  self._output_size + (0., )
 
     def set_shader(self, glsl):
@@ -410,7 +425,7 @@ class RenderingCanvas(app.Canvas):
         if self._interactive:
             for i in range(4):
                 with self._fboX[self._doubleFboid][i]:
-                    gloo.set_clear_color((0.0, 0.0, 0.0, 1))
+                    gloo.set_clear_color((0.0, 0.0, 0.0, 0.0))
                     gloo.clear(color=True, depth=True)
                     gloo.set_viewport(0, 0, *self.physical_size)
                     self._BufX[i].draw()
@@ -438,7 +453,7 @@ class RenderingCanvas(app.Canvas):
         else:
             for i in range(4):
                 with self._fboX[self._doubleFboid][i]:
-                    gloo.set_clear_color((0.0, 0.0, 0.0, 1))
+                    gloo.set_clear_color((0.0, 0.0, 0.0, 0.0))
                     gloo.clear(color=True, depth=True)
                     gloo.set_viewport(0, 0, *self.physical_size)
                     self._BufX[i].draw()
@@ -473,7 +488,7 @@ class RenderingCanvas(app.Canvas):
         (x, y) = event.pos
         imouse = (x, self.size[1] - y)
         imouse += imouse
-        self.program['iMouse'] = imouse
+        #self.program['iMouse'] = imouse
         if not self._timer:
             self.update()
 
@@ -482,7 +497,7 @@ class RenderingCanvas(app.Canvas):
             (x, y) = event.pos
             (px, py) = event.press_event.pos
             imouse = (x, self.size[1] - y, px, self.size[1] - py)
-            self.program['iMouse'] = imouse
+            #self.program['iMouse'] = imouse
             if not self._timer:
                 self.update()
 
@@ -708,6 +723,9 @@ if __name__ == '__main__':
     parser.add_argument('--size', type=str, default='1280x720',
                         help='Width and height of the viewport/output, e.g. 1920x1080 (string).'
                         )
+    parser.add_argument('--bitrate', type=str, default='5M',
+                        help='bitrate of video 1M 2M 15M etc'
+                        )
     parser.add_argument('--pos', type=str,
                         help='Position of the viewport, e.g. 100,100 (string).'
                         )
@@ -830,7 +848,7 @@ if __name__ == '__main__':
                     '-i', '-',
                     '-c:v', 'vp8',
                     '-auto-alt-ref', '0',
-                    '-b:v', '5M',
+                    '-b:v', args.bitrate,
                     '-crf', '10',
                     '-y', args.output,
                     ), stdin=subprocess.PIPE)
@@ -844,7 +862,7 @@ if __name__ == '__main__':
                     '-pix_fmt', 'rgba',
                     '-s', args.size,
                     '-i', '-',
-                    '-b:v', '15M',
+                    '-b:v', args.bitrate,
                     '-preset', 'slow',
                     '-c:v', 'h264_nvenc',  # 'libx264',
                     '-y', args.output,
