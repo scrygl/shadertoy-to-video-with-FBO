@@ -27,7 +27,7 @@ use same way to bind iTexture<0-3> as iChannel<0-3> *#define iChannel0 iTexture0
 
 **check example folder**, command to encode example:
 
-	> python shadertoy-render.py in.glsl out.mp4 --size=1920x1080 --rate=60 --duration=120.0
+	> python shadertoy-render.py ...
 
 **example 1** video recorded with RGBA and bufA
 
