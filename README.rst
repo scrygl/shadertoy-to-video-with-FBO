@@ -1,8 +1,6 @@
 shadertoy-render
 ================
 
-fork from https://github.com/alexjc/shadertoy-render
-
 **What is it**: creating video from shaders on Shadertoy
 
 **Changes**:
