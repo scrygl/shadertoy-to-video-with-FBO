@@ -23,7 +23,7 @@ if you need "change" order for shader, use in .glsl file (example set BufA as Bu
 
 	#define iChannel0 iChannel3
 	
-use same way to bind iTexture<0-3> as iChannel <0-3> *#define iChannel0 iTexture0*
+use same way to bind iTexture<0-3> as iChannel<0-3> *#define iChannel0 iTexture0*
 
 check example folder, command to encode example:
 
