@@ -14,7 +14,7 @@ fork from https://github.com/alexjc/shadertoy-render
 
 **Warning**
 
-many shaders(even top rated) on Shadertoy use clamp(1,0,-1)/pow(1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen because of this(or other random "actions"). Also remember to set Alpha in main.glsl when recording rgba video.
+many shaders(even top rated) on Shadertoy use clamp(1,0,-1)/pow(1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen because of this(or other random "results"). Also remember to set Alpha in main.glsl when recording rgba video.
 
 **Example**
 
