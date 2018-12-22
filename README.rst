@@ -25,10 +25,10 @@ if you need "change" order for shader, use in .glsl file (example set BufA as Bu
 	
 use same way to bind iTexture<0-3> as iChannel<0-3> *#define iChannel0 iTexture0*
 
-check example folder, command to encode example:
+**check example folder**, command to encode example:
 
 	> python shadertoy-render.py in.glsl out.mp4 --size=1920x1080 --rate=60 --duration=120.0
 
-example 1 video recorded with RGBA and bufA
+**example 1** video recorded with RGBA and bufA
 
-example 2 use BufA-D(0-3) and texture
+**example 2** use BufA-D(0-3) and texture
