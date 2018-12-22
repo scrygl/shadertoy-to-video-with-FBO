@@ -29,6 +29,6 @@ use same way to bind iTexture<0-3> as iChannel<0-3> *#define iChannel0 iTexture0
 
 	> python shadertoy-render.py ...
 
-**example 1** video recorded with RGBA and bufA
+**example 1** webm video recorded with RGBA and bufA
 
-**example 2** use BufA-D(0-3) and texture
+**example 2** mp4 use BufA-D(0-3) and texture
