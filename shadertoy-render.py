@@ -6,7 +6,7 @@
 # Copyright (c) 2015, Vispy Development Team.
 # Distributed under the (new) BSD License.
 
-# modified, 2018
+# modified, 2018, Danil
 
 from __future__ import unicode_literals, print_function
 
