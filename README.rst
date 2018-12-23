@@ -29,6 +29,7 @@ use same way to bind iTexture<0-3> as iChannel<0-3> *#define iChannel0 iTexture0
 **check example folder**, command to encode example(example use 3 buffers and one texture):
 
 	> cd example
+	
 	> python3 ../shadertoy-render.py --output 3.mp4 --size=800x450 --rate=60 --duration=20.0 --bitrate=5M main_img.glsl
 
 to record \*.mov or \*.webm just change output file to 3.webm or 3.mov
