@@ -304,8 +304,8 @@ class RenderingCanvas(app.Canvas):
     def set_Buf_channel_input(self):
         for i in range(4):
             for j in range(4):
-                self._BufX[i]['iChannel%d' % j] = self._texX[self._doubleFboid -1 if j>i else self._doubleFboid][j]
-                self._BufX[i]['u_channel%d' % j] = self._texX[self._doubleFboid -1 if j>i else self._doubleFboid][j]
+                self._BufX[i]['iChannel%d' % j] = self._texX[self._doubleFboid -1 if j>=i else self._doubleFboid][j]
+                self._BufX[i]['u_channel%d' % j] = self._texX[self._doubleFboid -1 if j>=i else self._doubleFboid][j]
                 self._BufX[i]['iChannelResolution[%d]' % j] =  self._output_size + (0., )
 
     def init_BufX(self):
