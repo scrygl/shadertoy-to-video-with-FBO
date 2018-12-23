@@ -21,6 +21,7 @@ each shader(buffer) use static bindings iChannel0->Buf0.glsl, iChannel1->Buf1.gl
 if you need "change" channel order for shader, use in .glsl file (example set BufA as BufC, and BufC as Texture0(0.png file))
 
 	#define iChannel0 u_channel3
+	
 	#define iChannel3 iTexture0
 	
 	
