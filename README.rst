@@ -1,7 +1,7 @@
 shadertoy-render
 ================
 
-**What is it**: creating video from shaders on Shadertoy. Fork from `original <https://github.com/alexjc/shadertoy-render>`_ source code edited
+**What is it**: creating video from shaders on Shadertoy. Fork from `original <https://github.com/alexjc/shadertoy-render>`_, source code edited
 
 **Changes**:
 
