@@ -58,6 +58,10 @@ uniform sampler2D iChannel0;             // input channel. XX = 2D/Cube
 uniform sampler2D iChannel1;             // input channel. XX = 2D/Cube
 uniform sampler2D iChannel2;             // input channel. XX = 2D/Cube
 uniform sampler2D iChannel3;             // input channel. XX = 2D/Cube
+uniform sampler2D u_channel0;             // input channel. XX = 2D/Cube
+uniform sampler2D u_channel1;             // input channel. XX = 2D/Cube
+uniform sampler2D u_channel2;             // input channel. XX = 2D/Cube
+uniform sampler2D u_channel3;             // input channel. XX = 2D/Cube
 uniform sampler2D iTexture0;             // input channel. XX = 2D/Cube
 uniform sampler2D iTexture1;             // input channel. XX = 2D/Cube
 uniform sampler2D iTexture2;             // input channel. XX = 2D/Cube
@@ -238,20 +242,7 @@ class RenderingCanvas(app.Canvas):
             self.set_texture_input(noise(resolution=256, nchannels=3), i=3)
             self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=3)
             
-            
-        for i in range(4):
-            with self._fboX[self._doubleFboid][i]:
-                gloo.set_clear_color((0.0, 0.0, 0.0, 0.0))
-                gloo.clear(color=True, depth=True)
-                gloo.set_viewport(0, 0, *self.physical_size)
-        for i in range(4):
-            with self._fboX[self._doubleFboid-1][i]:
-                gloo.set_clear_color((0.0, 0.0, 0.0, 0.0))
-                gloo.clear(color=True, depth=True)
-                gloo.set_viewport(0, 0, *self.physical_size)
-        
         self.set_channel_input()
-
         self.set_shader(glsl)
 
         if interactive:
@@ -313,7 +304,8 @@ class RenderingCanvas(app.Canvas):
     def set_Buf_channel_input(self):
         for i in range(4):
             for j in range(4):
-                self._BufX[i]['iChannel%d' % j] = self._texX[self._doubleFboid-1][j]
+                self._BufX[i]['iChannel%d' % j] = self._texX[self._doubleFboid -1 if j>i else self._doubleFboid][j]
+                self._BufX[i]['u_channel%d' % j] = self._texX[self._doubleFboid -1 if j>i else self._doubleFboid][j]
                 self._BufX[i]['iChannelResolution[%d]' % j] =  self._output_size + (0., )
 
     def init_BufX(self):
@@ -349,7 +341,8 @@ class RenderingCanvas(app.Canvas):
         
     def set_channel_input(self):
         for i in range(4):
-            self.program['iChannel%d' % i] = self._texX[self._doubleFboid-1][i]
+            self.program['iChannel%d' % i] = self._texX[self._doubleFboid][i]
+            self.program['u_channel%d' % i] = self._texX[self._doubleFboid][i]
             self.program['iChannelResolution[%d]' % i] =  self._output_size + (0., )
 
     def set_shader(self, glsl):
