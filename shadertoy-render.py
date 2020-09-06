@@ -36,7 +36,7 @@ from watchdog.events import FileSystemEventHandler
 
 vertex = \
     """
-#version 130
+#version 140
 
 attribute vec2 position;
 void main()
@@ -47,7 +47,7 @@ void main()
 
 fragment_template = \
     """
-#version 130
+#version 140
 
 uniform vec3      iResolution;           // viewport resolution (in pixels)
 uniform float     iGlobalTime;           // shader playback time (in seconds)
@@ -66,8 +66,24 @@ uniform sampler2D iTexture0;             // input channel. XX = 2D/Cube
 uniform sampler2D iTexture1;             // input channel. XX = 2D/Cube
 uniform sampler2D iTexture2;             // input channel. XX = 2D/Cube
 uniform sampler2D iTexture3;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture4;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture5;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture6;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture7;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture8;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture9;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture10;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture11;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture12;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture13;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture14;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture15;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture16;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture17;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture18;             // input channel. XX = 2D/Cube
+uniform sampler2D iTexture19;             // input channel. XX = 2D/Cube
 uniform vec3      iChannelResolution[4]; // channel resolution (in pixels)
-uniform vec3      iTextureResolution[4]; // channel resolution (in pixels)
+uniform vec3      iTextureResolution[20]; // channel resolution (in pixels)
 uniform float     iChannelTime[4];       // channel playback time (in sec)
 uniform vec2      iOffset;               // pixel offset for tiled rendering
 uniform int       iFrame; 
@@ -168,7 +184,7 @@ class RenderingCanvas(app.Canvas):
 
         self._render_frame_index = 0
 
-        clock = time.clock()
+        clock = time.perf_counter()
         self._clock_time_zero = clock - start_time
         self._clock_time_start = clock
 
@@ -217,31 +233,70 @@ class RenderingCanvas(app.Canvas):
                     self.physical_size[1], 0.))
         self.set_Buf_uniform('iTimeDelta' , self._interval)
 
-        try:
-            self.set_texture_input(read_png('0.png'), i=0)
-            self.set_Buf_texture_input(read_png('0.png'), i=0)
-        except FileNotFoundError:
-            self.set_texture_input(noise(resolution=256, nchannels=3), i=0)
-            self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=0)
-        try:
-            self.set_texture_input(read_png('1.png'), i=1)
-            self.set_Buf_texture_input(read_png('1.png'), i=1)
-        except FileNotFoundError:
-            self.set_texture_input(noise(resolution=256, nchannels=3), i=1)
-            self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=1)
-        try:
-            self.set_texture_input(read_png('2.png'), i=2)
-            self.set_Buf_texture_input(read_png('2.png'), i=2)
-        except FileNotFoundError:
-            self.set_texture_input(noise(resolution=256, nchannels=3), i=2)
-            self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=2)
-        try:
-            self.set_texture_input(read_png('3.png'), i=3)
-            self.set_Buf_texture_input(read_png('3.png'), i=3)
-        except FileNotFoundError:
-            self.set_texture_input(noise(resolution=256, nchannels=3), i=3)
-            self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=3)
+        # try:
+            # self.set_texture_input(read_png('0.png'), i=0)
+            # self.set_Buf_texture_input(read_png('0.png'), i=0)
+        # except FileNotFoundError:
+            # self.set_texture_input(noise(resolution=256, nchannels=3), i=0)
+            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=0)
+        # try:
+            # self.set_texture_input(read_png('1.png'), i=1)
+            # self.set_Buf_texture_input(read_png('1.png'), i=1)
+        # except FileNotFoundError:
+            # self.set_texture_input(noise(resolution=256, nchannels=3), i=1)
+            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=1)
+        # try:
+            # self.set_texture_input(read_png('2.png'), i=2)
+            # self.set_Buf_texture_input(read_png('2.png'), i=2)
+        # except FileNotFoundError:
+            # self.set_texture_input(noise(resolution=256, nchannels=3), i=2)
+            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=2)
+        # try:
+            # self.set_texture_input(read_png('3.png'), i=3)
+            # self.set_Buf_texture_input(read_png('3.png'), i=3)
+        # except FileNotFoundError:
+            # self.set_texture_input(noise(resolution=256, nchannels=3), i=3)
+            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=3)
+        # try:
+            # self.set_texture_input(read_png('4.png'), i=4)
+            # self.set_Buf_texture_input(read_png('4.png'), i=4)
+        # except FileNotFoundError:
+            # self.set_texture_input(noise(resolution=256, nchannels=3), i=4)
+            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=4)
+
+        # try:
+            # self.set_texture_input(read_png('5.png'), i=5)
+            # self.set_Buf_texture_input(read_png('5.png'), i=5)
+        # except FileNotFoundError:
+            # self.set_texture_input(noise(resolution=256, nchannels=3), i=5)
+            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=5)
+        # try:
+            # self.set_texture_input(read_png('6.png'), i=6)
+            # self.set_Buf_texture_input(read_png('6.png'), i=6)
+        # except FileNotFoundError:
+            # self.set_texture_input(noise(resolution=256, nchannels=3), i=6)
+            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=6)
+        # try:
+            # self.set_texture_input(read_png('7.png'), i=7)
+            # self.set_Buf_texture_input(read_png('7.png'), i=7)
+        # except FileNotFoundError:
+            # self.set_texture_input(noise(resolution=256, nchannels=3), i=7)
+            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=7)
+        # try:
+            # self.set_texture_input(read_png('8.png'), i=8)
+            # self.set_Buf_texture_input(read_png('8.png'), i=8)
+        # except FileNotFoundError:
+            # self.set_texture_input(noise(resolution=256, nchannels=3), i=8)
+            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=8)
             
+        for x in range(0,20):
+            try:
+                self.set_texture_input(read_png(str(x)+'.png'), i=x)
+                self.set_Buf_texture_input(read_png(str(x)+'.png'), i=x)
+            except FileNotFoundError:
+                self.set_texture_input(noise(resolution=2, nchannels=3), i=x)
+                self.set_Buf_texture_input(noise(resolution=2, nchannels=3), i=x)
+        
         self.set_channel_input()
         self.set_shader(glsl)
 
@@ -321,11 +376,11 @@ class RenderingCanvas(app.Canvas):
         
         for i in range(4):
             self._texX[0].append(gloo.Texture2D(shape=self._render_size[::-1]
-                    + (4, ), format= 'rgba', interpolation='linear', internalformat = 'rgba32f'))
+                    + (4, ), format= 'rgba', interpolation='linear',wrapping = 'repeat', internalformat = 'rgba32f'))
             self._fboX[0].append(gloo.FrameBuffer(self._texX[0][i],
                     gloo.RenderBuffer(shape=self._render_size[::-1])))
             self._texX[1].append(gloo.Texture2D(shape=self._render_size[::-1]
-                    + (4, ), format= 'rgba', interpolation='linear', internalformat = 'rgba32f'))
+                    + (4, ), format= 'rgba', interpolation='linear',wrapping = 'repeat', internalformat = 'rgba32f'))
             self._fboX[1].append(gloo.FrameBuffer(self._texX[1][i],
                     gloo.RenderBuffer(shape=self._render_size[::-1])))
             self._BufX.append(gloo.Program(vertex, fragment_template
@@ -351,7 +406,7 @@ class RenderingCanvas(app.Canvas):
     def advance_time(self):
         if not self._paused:
             if self._interval == 'auto':
-                self.program['iGlobalTime'] = time.clock() \
+                self.program['iGlobalTime'] = time.perf_counter() \
                     - self._clock_time_zero
                 for i in range(4):
                     self._BufX[i]['iGlobalTime'] = self.program['iGlobalTime']
@@ -554,9 +609,9 @@ class RenderingCanvas(app.Canvas):
             # so call draw() directly
 
             if self._render_frame_index==0:
-                clock = time.clock()
-                self._clock_time_zero = time.clock() - self._start_time
-                self._clock_time_start = time.clock()
+                clock = time.perf_counter()
+                self._clock_time_zero = time.perf_counter() - self._start_time
+                self._clock_time_start = time.perf_counter()
                 
             self.draw()
 
@@ -564,7 +619,7 @@ class RenderingCanvas(app.Canvas):
 
             self._tile_index += 1
 
-            clock_time_elapsed = time.clock() - self._clock_time_start
+            clock_time_elapsed = time.perf_counter() - self._clock_time_start
             rendered_tile_count = self._tile_index \
                 + self._render_frame_index * self._tile_count
             total_tile_count = self._tile_count \
@@ -657,7 +712,7 @@ class RenderingCanvas(app.Canvas):
 
     def update_timer_state(self):
         if not self._paused:
-            self._clock_time_zero = time.clock() \
+            self._clock_time_zero = time.perf_counter() \
                 - self.program['iGlobalTime']
             self.ensure_timer()
         else:
@@ -765,7 +820,7 @@ if __name__ == '__main__':
         (filename, file_ext) = os.path.splitext(args.output)
         file_ext = file_ext.lower()
         if file_ext == '.webm' or file_ext == '.mov' or file_ext \
-            == '.mp4':
+            == '.mp4' or file_ext == '.mkv':
             output_to_video = True
         elif file_ext != '.png':
             error('output file must be either PNG or MP4/MOV/WEBM file.'
@@ -857,7 +912,7 @@ if __name__ == '__main__':
                     '-i', '-',
                     '-b:v', args.bitrate,
                     '-preset', 'slow',
-                    '-c:v', 'h264_nvenc',  # 'libx264',
+                    '-c:v', 'libx264',  # 'libx264', h264_nvenc
                     '-y', args.output,
                     ), stdin=subprocess.PIPE)
     ffmpeg_pipe = ffmpeg.stdin
