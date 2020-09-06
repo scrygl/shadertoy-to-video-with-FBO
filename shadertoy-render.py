@@ -233,62 +233,6 @@ class RenderingCanvas(app.Canvas):
                     self.physical_size[1], 0.))
         self.set_Buf_uniform('iTimeDelta' , self._interval)
 
-        # try:
-            # self.set_texture_input(read_png('0.png'), i=0)
-            # self.set_Buf_texture_input(read_png('0.png'), i=0)
-        # except FileNotFoundError:
-            # self.set_texture_input(noise(resolution=256, nchannels=3), i=0)
-            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=0)
-        # try:
-            # self.set_texture_input(read_png('1.png'), i=1)
-            # self.set_Buf_texture_input(read_png('1.png'), i=1)
-        # except FileNotFoundError:
-            # self.set_texture_input(noise(resolution=256, nchannels=3), i=1)
-            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=1)
-        # try:
-            # self.set_texture_input(read_png('2.png'), i=2)
-            # self.set_Buf_texture_input(read_png('2.png'), i=2)
-        # except FileNotFoundError:
-            # self.set_texture_input(noise(resolution=256, nchannels=3), i=2)
-            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=2)
-        # try:
-            # self.set_texture_input(read_png('3.png'), i=3)
-            # self.set_Buf_texture_input(read_png('3.png'), i=3)
-        # except FileNotFoundError:
-            # self.set_texture_input(noise(resolution=256, nchannels=3), i=3)
-            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=3)
-        # try:
-            # self.set_texture_input(read_png('4.png'), i=4)
-            # self.set_Buf_texture_input(read_png('4.png'), i=4)
-        # except FileNotFoundError:
-            # self.set_texture_input(noise(resolution=256, nchannels=3), i=4)
-            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=4)
-
-        # try:
-            # self.set_texture_input(read_png('5.png'), i=5)
-            # self.set_Buf_texture_input(read_png('5.png'), i=5)
-        # except FileNotFoundError:
-            # self.set_texture_input(noise(resolution=256, nchannels=3), i=5)
-            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=5)
-        # try:
-            # self.set_texture_input(read_png('6.png'), i=6)
-            # self.set_Buf_texture_input(read_png('6.png'), i=6)
-        # except FileNotFoundError:
-            # self.set_texture_input(noise(resolution=256, nchannels=3), i=6)
-            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=6)
-        # try:
-            # self.set_texture_input(read_png('7.png'), i=7)
-            # self.set_Buf_texture_input(read_png('7.png'), i=7)
-        # except FileNotFoundError:
-            # self.set_texture_input(noise(resolution=256, nchannels=3), i=7)
-            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=7)
-        # try:
-            # self.set_texture_input(read_png('8.png'), i=8)
-            # self.set_Buf_texture_input(read_png('8.png'), i=8)
-        # except FileNotFoundError:
-            # self.set_texture_input(noise(resolution=256, nchannels=3), i=8)
-            # self.set_Buf_texture_input(noise(resolution=256, nchannels=3), i=8)
-            
         for x in range(0,20):
             try:
                 self.set_texture_input(read_png(str(x)+'.png'), i=x)
