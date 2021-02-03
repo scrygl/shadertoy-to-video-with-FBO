@@ -7,14 +7,15 @@ Sound support will be added, better "user friendly" and rewriting this code to m
 
 **Windows OS support for now :**
 
-1. install `Cygwin`
-2. from Cygwin packages UI install `python` latest python38 and `python38-devel` and `python38-numpy` and `libfreetype-devel`
+1. install *Cygwin*
+
+2. from Cygwin packages UI install *python* latest python38 and *python38-devel* and *python38-numpy* and *libfreetype-devel*
 3. 
 
-```
-> python -m pip install --upgrade pip
-> pip install vispy
-```
+	> python -m pip install --upgrade pip
+
+	> pip install vispy
+
 
 **What is it**: creating video from shaders on Shadertoy. Fork from `original <https://github.com/alexjc/shadertoy-render>`_, source code edited
 
