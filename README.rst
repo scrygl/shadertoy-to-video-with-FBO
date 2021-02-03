@@ -27,8 +27,7 @@ Windows OS support, **how to launch it on Windows OS**:
 TODO - wil be added audio file support and update code... latter
 
 
-**Changes**:
------------------
+**Changes from original**:
 
 1. added texture support, textures in **<0.png to 3.png> bind to iTexture<0-3>**
 2. added FrameBuffers, same to Buffer<A-D> on Shadertoy, **file name Buf<0-3>.glsl**, bind to *iChannel<0-3>* and *u_channel<0-3>*
