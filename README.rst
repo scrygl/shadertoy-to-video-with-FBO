@@ -1,19 +1,23 @@
 shadertoy-render
 ================
 
+**What is it**: creating video from shaders on Shadertoy. Fork from `original <https://github.com/alexjc/shadertoy-render>`_, source code edited
+
 **Update 2021:**
+-----------------
+
 Windows OS support, **how to launch it on Windows OS**:
 
-1. install `python3 <https://www.python.org/downloads/>`_ python 3.9 latest, **click Add Python to PATH** in setup Window
-2. press *Win+R* write *cmd* to launch console
-3. in Windows console write *pip install vispy*
-4. download `glfw3 64-bit Windows binaries <https://www.glfw.org/download.html>`_ and extract from archive
-5. download `ffmpeg-git-full https://ffmpeg.org/download.html#build-windows`_ (example - Windows builds from gyan - ffmpeg-git-full.7z) and extract
-6. download or clone this *shadertoy-to-video-with-FBO*
-7. open *shadertoy-render.py* in text editor
-8. edit line 41 to location of *glfw3.dll* downloaded and extracted on step 4 **notice that \ used as separator**
-9. edit line 42 to location of *ffmpeg.exe* downloaded and extracted on step 5 **notice that / used as separator**
-10. press *Win+R* write *cmd* to launch console and launch command
+1) install `python3 <https://www.python.org/downloads/>`_ python 3.9 latest, **click Add Python to PATH** in setup Window
+2) press *Win+R* write *cmd* to launch console
+3) in Windows console write *pip install vispy*
+4) download `glfw3 64-bit Windows binaries <https://www.glfw.org/download.html>`_ and extract from archive
+5) download `ffmpeg-git-full https://ffmpeg.org/download.html#build-windows`_ (example - Windows builds from gyan - ffmpeg-git-full.7z) and extract
+6) download or clone this *shadertoy-to-video-with-FBO*
+7) open *shadertoy-render.py* in text editor
+8) edit line 41 to location of *glfw3.dll* downloaded and extracted on step 4 **notice that \ used as separator**
+9) edit line 42 to location of *ffmpeg.exe* downloaded and extracted on step 5 **notice that / used as separator**
+10) press *Win+R* write *cmd* to launch console and launch command
 
 	> cd <path to example folder>
 	
@@ -23,12 +27,8 @@ Windows OS support, **how to launch it on Windows OS**:
 TODO - wil be added audio file support and update code... latter
 
 
-**Windows OS support for now :**
-
-
-**What is it**: creating video from shaders on Shadertoy. Fork from `original <https://github.com/alexjc/shadertoy-render>`_, source code edited
-
 **Changes**:
+-----------------
 
 1. added texture support, textures in **<0.png to 3.png> bind to iTexture<0-3>**
 2. added FrameBuffers, same to Buffer<A-D> on Shadertoy, **file name Buf<0-3>.glsl**, bind to *iChannel<0-3>* and *u_channel<0-3>*
@@ -37,7 +37,7 @@ TODO - wil be added audio file support and update code... latter
 
 **Warning**
 
-Many shaders(even top rated) on Shadertoy use clamp(1,0,-1)/pow(1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen(or other random "results") because of this. Also remember to set Alpha in main.glsl when recording rgba video. interpolation of fbo is linear 
+Many shaders(even top rated) on Shadertoy use clamp(1,0,-1)/pow(-1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen(or other random "results") because of this. Also remember to set Alpha in main.glsl when recording rgba video. interpolation of fbo is linear 
 
 **Example**
 
