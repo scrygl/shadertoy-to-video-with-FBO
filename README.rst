@@ -2,8 +2,26 @@ shadertoy-render
 ================
 
 **Update 2021:**
-TODO - I will update this script in next few months...
-Sound support will be added, better "user friendly" and rewriting this code to make it better, with adding Windows support.
+Windows OS support, **how to launch it on Windows OS**:
+
+1. install `python3 <https://www.python.org/downloads/>`_ python 3.9 latest, **click Add Python to PATH** in setup Window
+2. press *Win+R* write *cmd* to launch console
+3. in Windows console write *pip install vispy*
+4. download `glfw3 64-bit Windows binaries <https://www.glfw.org/download.html>`_ and extract from archive
+5. download `ffmpeg-git-full https://ffmpeg.org/download.html#build-windows`_ (example - Windows builds from gyan - ffmpeg-git-full.7z) and extract
+6. download or clone this *shadertoy-to-video-with-FBO*
+7. open *shadertoy-render.py* in text editor
+8. edit line 41 to location of *glfw3.dll* downloaded and extracted on step 4 **notice that \ used as separator**
+9. edit line 42 to location of *ffmpeg.exe* downloaded and extracted on step 5 **notice that / used as separator**
+10. press *Win+R* write *cmd* to launch console and launch command
+
+	> cd <path to example folder>
+	
+	> python ../shadertoy-render.py --output 3.mp4 --size=800x450 --rate=60 --duration=20.0 --bitrate=5M main_img.glsl
+
+
+TODO - wil be added audio file support and update code... latter
+
 
 **Windows OS support for now :**
 
