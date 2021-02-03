@@ -7,6 +7,7 @@ shadertoy-render
 -----------------
 
 Windows OS support, **how to launch it on Windows OS**:
+-----------------
 
 1) install `python3 <https://www.python.org/downloads/>`_ python 3.9 latest, **click Add Python to PATH** in setup Window
 2) press *Win+R* write **cmd** to launch console
