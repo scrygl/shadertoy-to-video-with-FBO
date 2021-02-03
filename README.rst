@@ -17,9 +17,9 @@ Windows OS support, **how to launch it on Windows OS**:
 7) open **shadertoy-render.py in text editor**
 8) edit line 41 to location of *glfw3.dll* downloaded and extracted on step 4 **notice that \\ used as separator**
 9) edit line 42 to location of *ffmpeg.exe* downloaded and extracted on step 5 **notice that / used as separator**
-10) press *Win+R* write **cmd** to launch console and launch command
+10) press *Win+R* write **cmd** to launch console and launch command, first command path is location of example folder
 
-	> cd <path to example folder>
+	> cd C:\shadertoy-to-video-with-FBO-master\example
 	
 	> python ../shadertoy-render.py --output 3.mp4 --size=800x450 --rate=60 --duration=20.0 --bitrate=5M main_img.glsl
 
