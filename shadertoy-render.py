@@ -14,6 +14,7 @@ import argparse
 import datetime
 import math
 import os.path
+import os
 import re
 import subprocess
 import sys
@@ -33,6 +34,12 @@ import vispy.util.keys as keys
 import watchdog
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+
+ffmpeg_file="ffmpeg"
+
+if os.name == 'nt':
+    os.environ["GLFW_LIBRARY"] = "C:\glfw-3.3.2.bin.WIN64\glfw-3.3.2.bin.WIN64\lib-vc2019\glfw3.dll"
+    ffmpeg_file="C:/ffmpeg-2021-02-02-git-2367affc2c-full_build/bin/ffmpeg.exe"
 
 vertex = \
     """
@@ -815,7 +822,7 @@ if __name__ == '__main__':
     if output_to_video:
         if file_ext == '.mov':
             ffmpeg = subprocess.Popen((
-                'ffmpeg',
+                ffmpeg_file,
                 '-loglevel', ('verbose' if args.verbose else 'panic'),
                 '-r', '%d' % args.rate,
                 '-f', 'rawvideo',
@@ -829,7 +836,7 @@ if __name__ == '__main__':
         else:
             if file_ext == '.webm':
                 ffmpeg = subprocess.Popen((
-                    'ffmpeg',
+                    ffmpeg_file,
                     '-loglevel', ('verbose' if args.verbose else 'panic'),
                     '-r', '%d' % args.rate,
                     '-f', 'rawvideo',
@@ -846,7 +853,7 @@ if __name__ == '__main__':
                     ), stdin=subprocess.PIPE)
             else:
                 ffmpeg = subprocess.Popen((
-                    'ffmpeg',
+                    ffmpeg_file,
                     '-threads', '0',
                     '-loglevel', ('verbose' if args.verbose else 'panic'),
                     '-r', '%d' % args.rate,
