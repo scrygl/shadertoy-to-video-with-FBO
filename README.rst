@@ -25,6 +25,7 @@ Windows OS support, **how to launch it on Windows OS**:
 
 
 TODO - wil be added audio file support and update code... latter
+TODO - add tile rendering
 
 
 **Changes from original**:
