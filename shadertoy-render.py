@@ -38,7 +38,7 @@ from watchdog.events import FileSystemEventHandler
 ffmpeg_file="ffmpeg"
 
 if os.name == 'nt':
-    os.environ["GLFW_LIBRARY"] = "C:\glfw-3.3.2.bin.WIN64\glfw-3.3.2.bin.WIN64\lib-vc2019\glfw3.dll"
+    os.environ["GLFW_LIBRARY"] = r"C:\glfw-3.3.2.bin.WIN64\glfw-3.3.2.bin.WIN64\lib-vc2019\glfw3.dll"
     ffmpeg_file="C:/ffmpeg-2021-02-02-git-2367affc2c-full_build/bin/ffmpeg.exe"
 
 vertex = \
