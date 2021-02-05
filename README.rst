@@ -24,7 +24,7 @@ TODO - add tile rendering
 
 **Warning, when result video does not look the same as on Shadertoy:**
 
-Many shaders(even top rated) on Shadertoy use clamp(1,0,-1)/pow(-1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen(or other random "results") because of this. 
+Many shaders(even top rated) on Shadertoy may use lots of unitialized vadiables and clamp(1,0,-1)/pow(-1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen(or other random "results") because of this. 
 
 Also **remember to set Alpha in main_image.glsl** when recording rgba video.
 
