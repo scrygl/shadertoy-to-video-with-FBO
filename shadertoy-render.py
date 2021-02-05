@@ -319,11 +319,11 @@ class RenderingCanvas(app.Canvas):
         
         for i in range(max_iChannels):
             self._texX[0].append(gloo.Texture2D(shape=self._render_size[::-1]
-                    + (4, ), format= 'rgba', interpolation='linear',wrapping = 'repeat', internalformat = 'rgba32f'))
+                    + (4, ), format= 'rgba', interpolation='linear',wrapping = 'clamp_to_edge', internalformat = 'rgba32f'))
             self._fboX[0].append(gloo.FrameBuffer(self._texX[0][i],
                     gloo.RenderBuffer(shape=self._render_size[::-1])))
             self._texX[1].append(gloo.Texture2D(shape=self._render_size[::-1]
-                    + (4, ), format= 'rgba', interpolation='linear',wrapping = 'repeat', internalformat = 'rgba32f'))
+                    + (4, ), format= 'rgba', interpolation='linear',wrapping = 'clamp_to_edge', internalformat = 'rgba32f'))
             self._fboX[1].append(gloo.FrameBuffer(self._texX[1][i],
                     gloo.RenderBuffer(shape=self._render_size[::-1])))
             self._BufX.append(gloo.Program(vertex, fragment_template
