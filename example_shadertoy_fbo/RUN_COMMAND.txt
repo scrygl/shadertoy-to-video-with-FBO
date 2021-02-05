@@ -1,12 +1,12 @@
 
 RGB mp4:
-python ../shadertoy-render.py --output 1.mp4 --size=800x450 --rate=60 --duration=5.0 --bitrate=5M main_image.glsl
+python ../shadertoy-render.py --output 1.mp4 --size=800x450 --rate=30 --duration=5.0 --bitrate=5M main_image.glsl
 
 RGBA webm:
-python ../shadertoy-render.py --output 1.webm --size=800x450 --rate=60 --duration=5.0 --bitrate=5M main_image.glsl
+python ../shadertoy-render.py --output 1.webm --size=800x450 --rate=30 --duration=5.0 --bitrate=5M main_image.glsl
 
 RGBA mov frames without compression:
-python ../shadertoy-render.py --output 1.mov --size=800x450 --rate=60 --duration=5.0 --bitrate=5M main_image.glsl
+python ../shadertoy-render.py --output 1.mov --size=800x450 --rate=30 --duration=5.0 --bitrate=5M main_image.glsl
 
 
 python3 for linux

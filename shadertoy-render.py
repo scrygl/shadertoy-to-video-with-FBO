@@ -41,8 +41,8 @@ if os.name == 'nt':
     os.environ["GLFW_LIBRARY"] = r"C:\glfw-3.3.2.bin.WIN64\glfw-3.3.2.bin.WIN64\lib-vc2019\glfw3.dll"
     ffmpeg_file="C:/ffmpeg-2021-02-02-git-2367affc2c-full_build/bin/ffmpeg.exe"
 
-max_iChannels=10 # equal iChannelXX
-max_iTextures=10 # exual iTextureXX
+max_iChannels=4 # equal iChannelXX
+max_iTextures=4 # equal iTextureXX
 
 vertex = \
     """
@@ -68,35 +68,17 @@ uniform sampler2D iChannel0;             // input channel
 uniform sampler2D iChannel1;             // input channel
 uniform sampler2D iChannel2;             // input channel
 uniform sampler2D iChannel3;             // input channel
-uniform sampler2D iChannel4;             // input channel
-uniform sampler2D iChannel5;             // input channel
-uniform sampler2D iChannel6;             // input channel
-uniform sampler2D iChannel7;             // input channel
-uniform sampler2D iChannel8;             // input channel
-uniform sampler2D iChannel9;             // input channel
 uniform sampler2D u_channel0;             // input channel
 uniform sampler2D u_channel1;             // input channel
 uniform sampler2D u_channel2;             // input channel
 uniform sampler2D u_channel3;             // input channel
-uniform sampler2D u_channel4;             // input channel
-uniform sampler2D u_channel5;             // input channel
-uniform sampler2D u_channel6;             // input channel
-uniform sampler2D u_channel7;             // input channel
-uniform sampler2D u_channel8;             // input channel
-uniform sampler2D u_channel9;             // input channel
 uniform sampler2D iTexture0;             // input channel
 uniform sampler2D iTexture1;             // input channel
 uniform sampler2D iTexture2;             // input channel
 uniform sampler2D iTexture3;             // input channel
-uniform sampler2D iTexture4;             // input channel
-uniform sampler2D iTexture5;             // input channel
-uniform sampler2D iTexture6;             // input channel
-uniform sampler2D iTexture7;             // input channel
-uniform sampler2D iTexture8;             // input channel
-uniform sampler2D iTexture9;             // input channel
-uniform vec3      iChannelResolution[10]; // channel resolution (in pixels)
-uniform vec3      iTextureResolution[10]; // channel resolution (in pixels)
-uniform float     iChannelTime[10];       // channel playback time (in sec)
+uniform vec3      iChannelResolution[4]; // channel resolution (in pixels)
+uniform vec3      iTextureResolution[4]; // channel resolution (in pixels)
+uniform float     iChannelTime[4];       // channel playback time (in sec)
 uniform vec2      iOffset;               // pixel offset for tiled rendering
 uniform int       iFrame; 
 uniform float     iTimeDelta; 
@@ -245,7 +227,7 @@ class RenderingCanvas(app.Canvas):
                     self.physical_size[1], 0.))
         self.set_Buf_uniform('iTimeDelta' , self._interval)
 
-        for x in range(0,10):
+        for x in range(0,max_iTextures):
             try:
                 self.set_texture_input(read_png(str(x)+'.png'), i=x)
                 self.set_Buf_texture_input(read_png(str(x)+'.png'), i=x)
