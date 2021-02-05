@@ -22,9 +22,13 @@ TODO - add tile rendering
 3. added encoding to \*.mov (frames without compression), \*.webm (v8 codec), both format **support RGBA** (video with alpha), added *--bitrate* option to set video bitrate(format 1M 2M..etc)
 4. fixed iTime(start from 0 on shader launch), iFrame work, iTimeDelta, and other
 
-**Warning**
+**Warning, when result video does not look the same as on Shadertoy:**
 
-Many shaders(even top rated) on Shadertoy use clamp(1,0,-1)/pow(-1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen(or other random "results") because of this. Also **remember to set Alpha in main_image.glsl** when recording rgba video. interpolation of fbo is linear 
+Many shaders(even top rated) on Shadertoy use clamp(1,0,-1)/pow(-1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen(or other random "results") because of this. 
+
+Also **remember to set Alpha in main_image.glsl** when recording rgba video.
+
+And check for used **buffers and textures parameters**, this script has *clamp_to_edge* with *linear* interpolation for buffers, and *repeat* with *linear* without *y-flip* for textures, Mipmaps not supported.
 
 **Example**
 
