@@ -276,12 +276,12 @@ class RenderingCanvas(app.Canvas):
         self._bufXglsl = []
         self._common_file = ''
         try:
-          self._common_file = open('Common.glsl', 'r').read()
+          self._common_file = open('Common.glsl', 'r').read().encode('ascii', errors='ignore').decode()
         except FileNotFoundError:
           print('Common.glsl file not used')
         for i in range(max_iChannels):
             try:
-                self._bufXglsl.append(self._common_file +'\n'+open('Buf%d.glsl' % i, 'r').read())
+                self._bufXglsl.append(self._common_file +'\n'+open('Buf%d.glsl' % i, 'r').read().encode('ascii', errors='ignore').decode())
             except FileNotFoundError:
                 print('FIle not found, used empty shader instead'+(' Buf%d.glsl' % i))
                 self._bufXglsl.append(self._common_file +'\n'+error_shader)
@@ -697,7 +697,7 @@ class ShaderWatcher(FileSystemEventHandler):
         if os.path.abspath(event.src_path) == self._filename:
             print('Updating shader...')
 
-            glsl_shader = open(self._filename, 'r').read()
+            glsl_shader = open(self._filename, 'r').read().encode('ascii', errors='ignore').decode()
 
             self._canvas.set_shader(glsl_shader)
             self._canvas.update()
@@ -812,7 +812,7 @@ if __name__ == '__main__':
         interval = 1.0 / float(args.rate)
 
     filepath = os.path.abspath(args.input)
-    glsl_shader = open(args.input, 'r').read()
+    glsl_shader = open(args.input, 'r').read().encode('ascii', errors='ignore').decode()
 
     observer = None
     ffmpeg = None
