@@ -6,23 +6,9 @@ shadertoy-render
 **Update 2021:**
 -----------------
 
-Windows OS support, **how to launch it on Windows OS**:
+Added Windows OS support instruction, **how to launch it on Windows OS** scroll down.
 
-1) **install** `python3 <https://www.python.org/downloads/>`_ python 3.9 latest, **click Add Python to PATH** in setup Window
-2) press *Win+R* write **cmd** to launch console
-3) in Windows console write **pip install vispy** and then **pip install watchdog**
-4) **download** `glfw3 64-bit Windows binaries <https://www.glfw.org/download.html>`_ and extract from archive
-5) **download** `ffmpeg-git-full <https://ffmpeg.org/download.html#build-windows>`_ (example - Windows builds from gyan - ffmpeg-git-full.7z) and extract
-6) **download** or clone this **shadertoy-to-video-with-FBO**
-7) open **shadertoy-render.py in text editor**
-8) edit line 41 to location of *glfw3.dll* downloaded and extracted on step 4 **notice that \\ used as separator** (and *r* in beginning)
-9) edit line 42 to location of *ffmpeg.exe* downloaded and extracted on step 5 **notice that / used as separator**
-10) press *Win+R* write **cmd** to launch console and launch command, first command path is location of example folder
-
-	> cd C:\\shadertoy-to-video-with-FBO-master\\example
-	
-	> python ../shadertoy-render.py --output 3.mp4 --size=800x450 --rate=60 --duration=20.0 --bitrate=5M main_img.glsl
-
+Fixed bugs.
 
 TODO - wil be added audio file support and update code... latter
 
@@ -38,7 +24,7 @@ TODO - add tile rendering
 
 **Warning**
 
-Many shaders(even top rated) on Shadertoy use clamp(1,0,-1)/pow(-1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen(or other random "results") because of this. Also remember to set Alpha in main.glsl when recording rgba video. interpolation of fbo is linear 
+Many shaders(even top rated) on Shadertoy use clamp(1,0,-1)/pow(-1,-1)/(0/0)/...etc, that work in not same way(have not same result) in OpenGL and webbrowser Angle/GLES, black screen(or other random "results") because of this. Also **remember to set Alpha in main_image.glsl** when recording rgba video. interpolation of fbo is linear 
 
 **Example**
 
@@ -53,19 +39,32 @@ if you need "change" channel order for shader, use in .glsl file (example set Bu
 	
 use same way to bind iTexture<0-3> as iChannel<0-3> *#define iChannel0 iTexture0*
 
-**check example folder**, command to encode example(example use 3 buffers and one texture):
+**check examples folders**, command to encode example(example use 3 buffers and one texture):
 
-	> cd example
+	> cd example_shadertoy_fbo
 	
-	> python3 ../shadertoy-render.py --output 3.mp4 --size=800x450 --rate=60 --duration=20.0 --bitrate=5M main_img.glsl
+	> python3 ../shadertoy-render.py --output 1.mp4 --size=800x450 --rate=30 --duration=5.0 --bitrate=5M main_image.glsl
 
 to record \*.mov or \*.webm just change output file to 3.webm or 3.mov
 
 
-**Example 1** `shader src <https://www.shadertoy.com/view/MdGGzG>`_ webm video recorded with RGBA and bufA `video link <https://danilw.github.io/GLSL-howto/shadertoy-render/1.webm>`_
+**Example_shadertoy_fbo** `shadertoy link src <https://www.shadertoy.com/view/WlcBWr>`_ webm video recorded with RGBA and test for correct buffers queue `video link <https://danilw.github.io/GLSL-howto/shadertoy-render/video_with_alpha_result.webm>`_
 
-**Example 2** `shader src <https://www.shadertoy.com/view/ltGBRD>`_ mp4 60fps/sec use BufA<->BufB cross reading
-`video link <https://danilw.github.io/GLSL-howto/shadertoy-render/2.mp4>`_
 
-**Example 3** `shader src <https://www.shadertoy.com/view/3dl3z7>`_ mp4 60fps/sec cross and self reading, this shader used in example folder
-`video link <https://danilw.github.io/GLSL-howto/shadertoy-render/3.mp4>`_
+Windows OS instruction to launch:
+-----------------
+
+1. **install** `python3 <https://www.python.org/downloads/>`_ python 3.9 latest, **click Add Python to PATH** in setup Window
+2. press *Win+R* write **cmd** to launch console
+3. in Windows console write **pip install vispy** and then **pip install watchdog**
+4. **download** `glfw3 64-bit Windows binaries <https://www.glfw.org/download.html>`_ and extract from archive
+5. **download** `ffmpeg-git-full <https://ffmpeg.org/download.html#build-windows>`_ (example - Windows builds from gyan - ffmpeg-git-full.7z) and extract
+6. **download** or clone this **shadertoy-to-video-with-FBO**
+7. open **shadertoy-render.py in text editor**
+8. edit line 41 to location of *glfw3.dll* downloaded and extracted on step 4 **notice that \\ used as separator** (and *r* in beginning)
+9. edit line 42 to location of *ffmpeg.exe* downloaded and extracted on step 5 **notice that / used as separator**
+10. press *Win+R* write **cmd** to launch console and launch command, first command path is location of example folder
+
+	> cd C:\\shadertoy-to-video-with-FBO-master\\example_shadertoy_fbo
+	
+	> python ../shadertoy-render.py --output 1.mp4 --size=800x450 --rate=30 --duration=5.0 --bitrate=5M main_image.glsl
