@@ -8,7 +8,7 @@ shadertoy-render
 
 Added Windows OS support instruction, **how to launch it on Windows OS** scroll down.
 
-**Fixed bugs**. Script had bug with buffers queue one frame was dropped, **please redownload bug fixed**. And added correct test for buffers queue *example_shadertoy_fbo*.
+**Fixed bugs**. Script had a bug with buffers queue one frame was dropped, **please redownload bug fixed**. And added correct test for buffers queue *example_shadertoy_fbo*.
 
 TODO - wil be added audio file support and update code... latter
 
