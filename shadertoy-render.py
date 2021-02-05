@@ -41,6 +41,9 @@ if os.name == 'nt':
     os.environ["GLFW_LIBRARY"] = r"C:\glfw-3.3.2.bin.WIN64\glfw-3.3.2.bin.WIN64\lib-vc2019\glfw3.dll"
     ffmpeg_file="C:/ffmpeg-2021-02-02-git-2367affc2c-full_build/bin/ffmpeg.exe"
 
+max_iChannels=10 # equal iChannelXX
+max_iTextures=10 # exual iTextureXX
+
 vertex = \
     """
 #version 140
@@ -61,37 +64,39 @@ uniform float     iGlobalTime;           // shader playback time (in seconds)
 uniform vec4      iMouse;                // mouse pixel coords
 uniform vec4      iDate;                 // (year, month, day, time in seconds)
 uniform float     iSampleRate;           // sound sample rate (i.e., 44100)
-uniform sampler2D iChannel0;             // input channel. XX = 2D/Cube
-uniform sampler2D iChannel1;             // input channel. XX = 2D/Cube
-uniform sampler2D iChannel2;             // input channel. XX = 2D/Cube
-uniform sampler2D iChannel3;             // input channel. XX = 2D/Cube
-uniform sampler2D u_channel0;             // input channel. XX = 2D/Cube
-uniform sampler2D u_channel1;             // input channel. XX = 2D/Cube
-uniform sampler2D u_channel2;             // input channel. XX = 2D/Cube
-uniform sampler2D u_channel3;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture0;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture1;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture2;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture3;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture4;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture5;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture6;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture7;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture8;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture9;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture10;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture11;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture12;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture13;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture14;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture15;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture16;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture17;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture18;             // input channel. XX = 2D/Cube
-uniform sampler2D iTexture19;             // input channel. XX = 2D/Cube
-uniform vec3      iChannelResolution[4]; // channel resolution (in pixels)
-uniform vec3      iTextureResolution[20]; // channel resolution (in pixels)
-uniform float     iChannelTime[4];       // channel playback time (in sec)
+uniform sampler2D iChannel0;             // input channel
+uniform sampler2D iChannel1;             // input channel
+uniform sampler2D iChannel2;             // input channel
+uniform sampler2D iChannel3;             // input channel
+uniform sampler2D iChannel4;             // input channel
+uniform sampler2D iChannel5;             // input channel
+uniform sampler2D iChannel6;             // input channel
+uniform sampler2D iChannel7;             // input channel
+uniform sampler2D iChannel8;             // input channel
+uniform sampler2D iChannel9;             // input channel
+uniform sampler2D u_channel0;             // input channel
+uniform sampler2D u_channel1;             // input channel
+uniform sampler2D u_channel2;             // input channel
+uniform sampler2D u_channel3;             // input channel
+uniform sampler2D u_channel4;             // input channel
+uniform sampler2D u_channel5;             // input channel
+uniform sampler2D u_channel6;             // input channel
+uniform sampler2D u_channel7;             // input channel
+uniform sampler2D u_channel8;             // input channel
+uniform sampler2D u_channel9;             // input channel
+uniform sampler2D iTexture0;             // input channel
+uniform sampler2D iTexture1;             // input channel
+uniform sampler2D iTexture2;             // input channel
+uniform sampler2D iTexture3;             // input channel
+uniform sampler2D iTexture4;             // input channel
+uniform sampler2D iTexture5;             // input channel
+uniform sampler2D iTexture6;             // input channel
+uniform sampler2D iTexture7;             // input channel
+uniform sampler2D iTexture8;             // input channel
+uniform sampler2D iTexture9;             // input channel
+uniform vec3      iChannelResolution[10]; // channel resolution (in pixels)
+uniform vec3      iTextureResolution[10]; // channel resolution (in pixels)
+uniform float     iChannelTime[10];       // channel playback time (in sec)
 uniform vec2      iOffset;               // pixel offset for tiled rendering
 uniform int       iFrame; 
 uniform float     iTimeDelta; 
@@ -240,7 +245,7 @@ class RenderingCanvas(app.Canvas):
                     self.physical_size[1], 0.))
         self.set_Buf_uniform('iTimeDelta' , self._interval)
 
-        for x in range(0,20):
+        for x in range(0,10):
             try:
                 self.set_texture_input(read_png(str(x)+'.png'), i=x)
                 self.set_Buf_texture_input(read_png(str(x)+'.png'), i=x)
@@ -265,7 +270,7 @@ class RenderingCanvas(app.Canvas):
 
             # Note that gloo.Texture2D and gloo.RenderBuffer use the numpy convention for dimensions ('shape'),
             # i.e., HxW
-
+            
             self._rendertex = gloo.Texture2D(shape=render_size[::-1]
                     + (4, ))
             self._fbo = gloo.FrameBuffer(self._rendertex,
@@ -288,29 +293,35 @@ class RenderingCanvas(app.Canvas):
 
     def set_BufX(self):
         self._bufXglsl = []
-        for i in range(4):
+        self._common_file = ''
+        try:
+          self._common_file = open('Common.glsl', 'r').read()
+        except FileNotFoundError:
+          print('Common.glsl file not used')
+        for i in range(max_iChannels):
             try:
-                self._bufXglsl.append(open('Buf%d.glsl' % i, 'r').read())
+                self._bufXglsl.append(self._common_file +'\n'+open('Buf%d.glsl' % i, 'r').read())
             except FileNotFoundError:
-                self._bufXglsl.append(error_shader)
+                print('FIle not found, used empty shader instead'+(' Buf%d.glsl' % i))
+                self._bufXglsl.append(self._common_file +'\n'+error_shader)
                 continue
         
     def set_Buf_uniform(self, uni, val):
-        for i in range(4):
+        for i in range(max_iChannels):
             self._BufX[i][uni] = val
         
     def set_Buf_texture_input(self, img, i=0, rep=True):
         tex = gloo.Texture2D(img)
         tex.interpolation = 'linear'
         tex.wrapping = 'repeat' if rep else 'clamp_to_edge'
-        for j in range(4):
+        for j in range(max_iTextures):
             self._BufX[j]['iTexture%d' % i] = tex
             self._BufX[j]['iTextureResolution[%d]' % i] = img.shape
 
     def set_Buf_channel_input(self):
-        for i in range(4):
-            for j in range(4):
-                self._BufX[i]['iChannel%d' % j] = self._texX[self._doubleFboid -1 if j>=i else self._doubleFboid][j]
+        for i in range(max_iChannels):
+            for j in range(max_iChannels):
+                self._BufX[i]['iChannel%d' % j] =  self._texX[self._doubleFboid -1 if j>=i else self._doubleFboid][j]
                 self._BufX[i]['u_channel%d' % j] = self._texX[self._doubleFboid -1 if j>=i else self._doubleFboid][j]
                 self._BufX[i]['iChannelResolution[%d]' % j] =  self._output_size + (0., )
 
@@ -325,7 +336,7 @@ class RenderingCanvas(app.Canvas):
         self._texX.append([])
         self._fboX.append([])
         
-        for i in range(4):
+        for i in range(max_iChannels):
             self._texX[0].append(gloo.Texture2D(shape=self._render_size[::-1]
                     + (4, ), format= 'rgba', interpolation='linear',wrapping = 'repeat', internalformat = 'rgba32f'))
             self._fboX[0].append(gloo.FrameBuffer(self._texX[0][i],
@@ -346,24 +357,24 @@ class RenderingCanvas(app.Canvas):
         self.program['iTextureResolution[%d]' % i] = img.shape
         
     def set_channel_input(self):
-        for i in range(4):
+        for i in range(max_iChannels):
             self.program['iChannel%d' % i] = self._texX[self._doubleFboid][i]
             self.program['u_channel%d' % i] = self._texX[self._doubleFboid][i]
             self.program['iChannelResolution[%d]' % i] =  self._output_size + (0., )
 
     def set_shader(self, glsl):
-        self._glsl = glsl
+        self._glsl = self._common_file + '\n' + glsl
 
     def advance_time(self):
         if not self._paused:
             if self._interval == 'auto':
                 self.program['iGlobalTime'] = time.perf_counter() \
                     - self._clock_time_zero
-                for i in range(4):
+                for i in range(max_iChannels):
                     self._BufX[i]['iGlobalTime'] = self.program['iGlobalTime']
             else:
                 self.program['iGlobalTime'] += self._interval
-                for i in range(4):
+                for i in range(max_iChannels):
                     self._BufX[i]['iGlobalTime'] = self.program['iGlobalTime']
 
     def write_video_frame(self, img):
@@ -371,10 +382,10 @@ class RenderingCanvas(app.Canvas):
             != self._output_size[0]:
             warn('Frame data is wrong size! Video will be corrupted.')
 
-        self._ffmpeg_pipe.write(img.tostring())
+        self._ffmpeg_pipe.write(img.tobytes())
 
     def draw(self):
-        for i in range(4):
+        for i in range(max_iChannels):
             if self._bufXglsl[i]:
                 fragment = fragment_template % self._bufXglsl[i]
                 self._bufXglsl[i] = None
@@ -422,7 +433,7 @@ class RenderingCanvas(app.Canvas):
             gl.glDeleteShader(frag_handle)
 
         if self._interactive:
-            for i in range(4):
+            for i in range(max_iChannels):
                 with self._fboX[self._doubleFboid][i]:
                     gloo.set_clear_color((0.0, 0.0, 0.0, 0.0))
                     gloo.clear(color=True, depth=True)
@@ -447,10 +458,12 @@ class RenderingCanvas(app.Canvas):
             self.advance_time()
             self.program['iFrame'] = self._render_frame_index
             self.set_Buf_uniform('iFrame' , self._render_frame_index)
+            self.set_Buf_uniform('iMouse' , self.program['iMouse'])
+            self.program['iMouse']=(self.program['iMouse'][0],self.program['iMouse'][1],self.program['iMouse'][2],-abs(self.program['iMouse'][3]))
             self.set_channel_input()
             self.set_Buf_channel_input()
         else:
-            for i in range(4):
+            for i in range(max_iChannels):
                 with self._fboX[self._doubleFboid][i]:
                     gloo.set_clear_color((0.0, 0.0, 0.0, 0.0))
                     gloo.clear(color=True, depth=True)
@@ -469,16 +482,12 @@ class RenderingCanvas(app.Canvas):
                 gloo.set_viewport(0, 0, *rs)
                 self.program['iOffset'] = self._tile_coord
                 self.program.draw()
-                self._doubleFbo = not self._doubleFbo
-                self._doubleFboid=(0 if self._doubleFbo else 1)
-                self.program['iFrame'] = self._render_frame_index
-                self.set_Buf_uniform('iFrame' , self._render_frame_index)
-                self.set_channel_input()
-                self.set_Buf_channel_input()
+                
                 img = _screenshot()
                 row = self._output_size[1] - self._tile_coord[1] - rs[1]
                 col = self._tile_coord[0]
                 self._img[row:row + rs[1], col:col + rs[0], :] = img
+                
 
     def on_draw(self, event):
         self.draw()
@@ -487,16 +496,20 @@ class RenderingCanvas(app.Canvas):
         (x, y) = event.pos
         imouse = (x, self.size[1] - y)
         imouse += imouse
-        #self.program['iMouse'] = imouse
+        self.program['iMouse'] = imouse
         if not self._timer:
             self.update()
-
+            
+    def on_mouse_release(self, event):
+        self.program['iMouse']=(self.program['iMouse'][0],self.program['iMouse'][1],-abs(self.program['iMouse'][2]),-abs(self.program['iMouse'][3]))
+    
     def on_mouse_move(self, event):
         if event.is_dragging:
             (x, y) = event.pos
             (px, py) = event.press_event.pos
             imouse = (x, self.size[1] - y, px, self.size[1] - py)
-            #self.program['iMouse'] = imouse
+            self.program['iMouse'] = imouse
+            self.program['iMouse']=(self.program['iMouse'][0],self.program['iMouse'][1],self.program['iMouse'][2],-abs(self.program['iMouse'][3]))
             if not self._timer:
                 self.update()
 
@@ -589,11 +602,16 @@ class RenderingCanvas(app.Canvas):
                 str(datetime.timedelta(seconds=round(clock_time_remain))),
                 str(datetime.timedelta(seconds=round(clock_time_total))),
                 ))
-
             if self._tile_index == self._tile_count:
                 if self._ffmpeg_pipe:
                     self.write_video_frame(self._img)
                     self._render_frame_index += 1
+                    self._doubleFbo = not self._doubleFbo
+                    self._doubleFboid=(0 if self._doubleFbo else 1)
+                    self.program['iFrame'] = self._render_frame_index
+                    self.set_Buf_uniform('iFrame' , self._render_frame_index)
+                    self.set_channel_input()
+                    self.set_Buf_channel_input()
 
                     if self._render_frame_count is not None \
                         and self._render_frame_index \
