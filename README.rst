@@ -5,7 +5,7 @@ shadertoy-render
 
 **Error on uploading created videos** to instagram/twitter - **Warning libx264 in ffmpeg does not allow upload videos to twitter or instagram.**
 
-Solution - use other video codec (sadly no one support WebM video), I tested *h264_nvenc* codec (Nvidia only) and its work for uploading, change mp4 video codec on **line 865** *libx264* to *h264_nvenc*. Other solution - try use old ffmpeg (2018-2019) or something else than *libx264*.
+Solution - use other video codec (sadly no one support WebM video), I tested *h264_nvenc* codec (Nvidia only) and its work for uploading, change mp4 video codec on **line 865** *libx264* to *h264_nvenc*. Other solution - try to use old ffmpeg (2018-2019) or something else than *libx264*.
 
 **Update 2021:**
 -----------------
