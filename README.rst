@@ -3,7 +3,7 @@ shadertoy-render
 
 **What is it**: creating video from shaders on Shadertoy. Fork from `original <https://github.com/alexjc/shadertoy-render>`_, source code edited
 
-**Error on uploading created videos** to instagram/twitter - **Warning libx264 in ffmpeg are broken in some versions** (someof 2020-2021 versions), I tested and confirm that *ffmpeg version 4.3.1* allow upload created mp4 videos to twitter/instagram. Solution is - update to latest ffmpeg or use 2019 or older ffmpeg.
+**Error on uploading created videos** to instagram/twitter - **Warning libx264 in ffmpeg are broken in some versions** (some of 2020-2021 versions), I tested and confirm that *ffmpeg version 4.3.1* allow upload created mp4 videos to twitter/instagram. Solution is - update to latest ffmpeg or use 2019 or older ffmpeg.
 
 **Update 2021:**
 -----------------
