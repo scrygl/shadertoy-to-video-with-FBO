@@ -46,14 +46,14 @@ if you need "change" channel order for shader, use in .glsl file (example set Bu
 	
 use same way to bind iTexture<0-3> as iChannel<0-3> *#define iChannel0 iTexture0*
 
-**check examples folders**, command to encode example(example use 3 buffers and one texture):
+**check examples folders**, command to encode example:
 
 .. code-block:: bash
 
 	 cd example_shadertoy_fbo
 	 python3 ../shadertoy-render.py --output 1.mp4 --size=800x450 --rate=30 --duration=5.0 --bitrate=5M main_image.glsl
 
-to record \*.mov or \*.webm just change output file to 3.webm or 3.mov
+to record \*.mov or \*.webm just change output file to *.webm* or *.mov*
 
 To convert **Video to Gif** ffmpeg commands:
 
