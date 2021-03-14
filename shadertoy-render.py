@@ -860,6 +860,8 @@ if __name__ == '__main__':
                     '-pix_fmt', 'rgba',
                     '-s', args.size,
                     '-i', '-',
+                    '-pix_fmt', 'yuv420p',
+                    '-movflags', '+faststart',
                     '-b:v', args.bitrate,
                     '-preset', 'slow',
                     '-c:v', 'libx264',  # 'libx264', h264_nvenc
