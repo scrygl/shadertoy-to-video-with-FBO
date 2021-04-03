@@ -5,6 +5,8 @@ shadertoy-render
 
 **Uploading created video to Twitter/Instagram** - pixel format set to *yuv420p* for *libx264* codec and video can be uploaded to any social platform without problems.
 
+Nor supported - Cubemaps, Shader-Cubemap, 3d texture, audio and video input also not supported.
+
 **Update 2021:**
 -----------------
 
@@ -12,7 +14,7 @@ Added Windows OS support instruction, **how to launch it on Windows OS** scroll 
 
 Added correct test for buffers queue *example_shadertoy_fbo*.
 
-TODO - wil be added audio file support and update code... latter
+TODO - wil be added audio file support and video input support... latter
 
 TODO - add tile rendering
 
