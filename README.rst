@@ -1,7 +1,7 @@
 shadertoy-render
 ================
 
-**What is it**: creating video from shaders on Shadertoy. Fork from `original <https://github.com/alexjc/shadertoy-render>`_, source code edited
+**What is it**: creating video from shaders on Shadertoy. Fork from `original <https://github.com/alexjc/shadertoy-render>`_, source code edited.
 
 **Uploading created video to Twitter/Instagram** - pixel format set to *yuv420p* for *libx264* codec and video can be uploaded to any social platform without problems.
 
@@ -14,9 +14,7 @@ Added Windows OS support instruction, **how to launch it on Windows OS** scroll 
 
 Added correct test for buffers queue *example_shadertoy_fbo*.
 
-TODO - wil be added audio file support and video input support... latter
-
-TODO - add tile rendering
+TODO - il develop better "shader recorder" with build in ffmpeg and implementing all missing featres (audio/video/cubemaps/etc). That will be completely new project, this project is done.
 
 
 **Changes from original**:
