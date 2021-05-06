@@ -14,7 +14,7 @@ Added Windows OS support instruction, **how to launch it on Windows OS** scroll 
 
 Added correct test for buffers queue *example_shadertoy_fbo*.
 
-TODO - il develop better "shader recorder" using Vulkan with build in ffmpeg and implementing all missing featres (audio/video/cubemaps/etc). That will be completely new project, this project is done.
+TODO - il develop better "shader recorder" using Vulkan and implementing all missing featres (audio/video/cubemaps/etc). That will be completely new project, this project is done.
 
 
 **Changes from original**:
