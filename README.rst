@@ -34,7 +34,8 @@ Also **remember to set Alpha in main_image.glsl** when recording rgba video.
 
 And check for used **buffers and textures parameters**, this script has *clamp_to_edge* with *linear* interpolation for buffers, and *repeat* with *linear* without *y-flip* for textures, Mipmaps not supported.
 
-**Example**
+Example
+-----------------
 
 each shader(buffer) use static bindings iChannel0->Buf0.glsl, iChannel1->Buf1.glsl, iChannel2->Buf2.glsl, iChannel3->Buf3.glsl, also **added renamed copy of each channel** *sampler2D u_channel<0-3>*, to rebind inside of .glsl shader(using define)
 
