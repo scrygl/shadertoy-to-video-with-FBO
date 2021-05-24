@@ -16,6 +16,8 @@ Added correct test for buffers queue *example_shadertoy_fbo*.
 
 TODO - il develop better "shader recorder" using Vulkan and implementing all missing featres (audio/video/cubemaps/etc). That will be completely new project, this project is done.
 
+**Look for useful ffmpeg commands below.** (also method of saving single frame(png with alpha) described there)
+
 
 **Changes from original**:
 
@@ -55,20 +57,6 @@ use same way to bind iTexture<0-3> as iChannel<0-3> *#define iChannel0 iTexture0
 
 to record \*.mov or \*.webm just change output file to *.webm* or *.mov*
 
-To convert **Video to Gif** ffmpeg commands:
-
-best quality (Linux only) delay = 100/fps
-
-.. code-block:: bash
-
-        ffmpeg -i video.mp4 -vf "fps=25,scale=480:-1:flags=lanczos" -c:v pam -f image2pipe - | convert -delay 4 - -loop 0 -layers optimize output.gif
-
-not best quality (work on Windows and Linux)
-
-.. code-block:: bash
-
-        ffmpeg -i video.mp4 -vf "fps=25,scale=640:-1:flags=lanczos" output.gif
-
 **Example_shadertoy_fbo** `shadertoy link src <https://www.shadertoy.com/view/WlcBWr>`_ webm video recorded with RGBA and test for correct buffers queue `video link <https://danilw.github.io/GLSL-howto/shadertoy-render/video_with_alpha_result.webm>`_
 
 
@@ -89,3 +77,34 @@ Windows OS instruction to launch:
 	> cd C:\\shadertoy-to-video-with-FBO-master\\example_shadertoy_fbo
 	
 	> python ../shadertoy-render.py --output 1.mp4 --size=800x450 --rate=30 --duration=5.0 --bitrate=5M main_image.glsl
+
+
+Useful ffmpeg commands:
+-----------------
+
+To **exptract .png frames with Alpha without compression**:
+
+Two options:
+
+1. if you need **just a single frame** - add --interactive to this script command line, and press S(keyboard) to save frame.
+2. **for many frames** - save video as .mov (change file format in comand line) and then:
+
+.. code-block:: bash
+
+        ffmpeg -i video.mov -vf fps=1 "frames/out%d.png"
+
+
+To convert **Video to Gif** ffmpeg commands:
+
+best quality (Linux only) delay = 100/fps
+
+.. code-block:: bash
+
+        ffmpeg -i video.mp4 -vf "fps=25,scale=480:-1:flags=lanczos" -c:v pam -f image2pipe - | convert -delay 4 - -loop 0 -layers optimize output.gif
+
+not best quality (work on Windows and Linux)
+
+.. code-block:: bash
+
+        ffmpeg -i video.mp4 -vf "fps=25,scale=640:-1:flags=lanczos" output.gif
+
