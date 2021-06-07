@@ -87,7 +87,7 @@ To **exptract .png frames with Alpha without compression**:
 
 Two options:
 
-1. if you need **just a single frame** - add --interactive to this script command line, and press S(keyboard) to save frame.
+1. if you need **just a single frame** - add *--interactive* to this script command line, and press S(keyboard) to save frame.
 2. **for many frames** - save video as .mov (change file format in comand line) and then:
 
 .. code-block:: bash
