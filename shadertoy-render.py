@@ -47,6 +47,8 @@ max_iTextures=4 # equal iTextureXX
 vertex = \
     """
 #version 140
+#extension GL_ARB_shader_bit_encoding : enable
+#extension GL_ARB_gpu_shader5 : enable
 
 attribute vec2 position;
 void main()
