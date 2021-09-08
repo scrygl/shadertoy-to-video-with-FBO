@@ -35,7 +35,8 @@ import watchdog
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-ffmpeg_file="ffmpeg"
+#ffmpeg_file="ffmpeg"
+ffmpeg_file="/root/ffmpeg/ffmpeg"
 
 if os.name == 'nt':
     os.environ["GLFW_LIBRARY"] = r"C:\glfw-3.3.2.bin.WIN64\glfw-3.3.2.bin.WIN64\lib-vc2019\glfw3.dll"
@@ -860,13 +861,15 @@ if __name__ == '__main__':
                     '-r', '%d' % args.rate,
                     '-f', 'rawvideo',
                     '-pix_fmt', 'rgba',
+                    '-hwaccel', 'cuda',
+                    '-hwaccel_output_format', 'cuda',
                     '-s', args.size,
                     '-i', '-',
                     '-pix_fmt', 'yuv420p',
                     '-movflags', '+faststart',
                     '-b:v', args.bitrate,
                     '-preset', 'slow',
-                    '-c:v', 'libx264',  # 'libx264', h264_nvenc
+                    '-c:v', 'h264_nvenc',  # 'libx264', h264_nvenc
                     '-y', args.output,
                     ), stdin=subprocess.PIPE)
     ffmpeg_pipe = ffmpeg.stdin
